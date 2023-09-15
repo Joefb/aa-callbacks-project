@@ -41,13 +41,57 @@ AFTER YOU ARE FINISHED WITH THIS PROBLEM, ASK FOR A CODE REVIEW
 - What do you expect each callback function to be returning?
 - How many times are you calling each callback function?
 *******************************************************************************/
+//1. create funct, 3 paras, arr, cb1, cb2
+//  - create new mapArray to return
+//  - iterate arr
+//  - pass each ele to cb1
+//  - if true pass ele to cb2
+//  - push results to mapArray
+//  - return mapArray
 
-let selectiveMap = function() {
+let selectiveMap = function(arr, cb1, cb2) {
+    let mapArray = [];
+    
+    for (let ele of arr) {
+	let isTrue = cb1(ele);
 
+	if (!isTrue) {
+	    mapArray.push(ele);
+	    continue;
+	};
+	
+	let filterEle = cb2(ele);
+	mapArray.push(filterEle);
+    };
+    
+    return mapArray;
 };
 
+// returns a bool
+function isEven(n) {
+    return n % 2 === 0;
+}
+// returns a bool
+function isPositive(n) {
+    return n > 0;
+}
+// returns a int
+function square(n) {
+    return n * n;
+}
+// returns a int
+function flipSign(n) {
+    return n * -1;
+}
 
+console.log(selectiveMap([8, 5, 10, 4], isEven, square));
+// [ 64, 5, 100, 16 ]
 
+console.log(selectiveMap([-10, 4, 7, 6, -2, -9], isEven, flipSign));
+// [ 10, -4, 7, -6, 2, -9 ]
+
+console.log(selectiveMap([-10, 4, 7, 6, -2, -9], isPositive, square));
+// [-10, 16, 49, 36, -2, -9]
 
 
 
