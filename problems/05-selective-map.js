@@ -53,15 +53,12 @@ let selectiveMap = function(arr, cb1, cb2) {
     let mapArray = [];
     
     for (let ele of arr) {
-	let isTrue = cb1(ele);
-
-	if (!isTrue) {
+	if (!cb1(ele)) {
 	    mapArray.push(ele);
 	    continue;
 	};
 	
-	let filterEle = cb2(ele);
-	mapArray.push(filterEle);
+	mapArray.push(cb2(ele));
     };
     
     return mapArray;
