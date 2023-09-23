@@ -53,12 +53,11 @@ let selectiveMap = function(arr, cb1, cb2) {
     let mapArray = [];
     
     for (let ele of arr) {
-	if (!cb1(ele)) {
+	if (cb1(ele) === true) {
+	    mapArray.push(cb2(ele));
+	} else {
 	    mapArray.push(ele);
-	    continue;
 	};
-	
-	mapArray.push(cb2(ele));
     };
     
     return mapArray;
@@ -80,6 +79,12 @@ function square(n) {
 function flipSign(n) {
     return n * -1;
 }
+
+//console.log("" % 2 === 0);
+//console.log(square(""));
+
+//console.log(selectiveMap([0, "", null, undefined], isPositive, square));
+//console.log(selectiveMap([0, "", null, undefined], isEven, square));
 
 console.log(selectiveMap([8, 5, 10, 4], isEven, square));
 // [ 64, 5, 100, 16 ]
